@@ -168,6 +168,11 @@ This project is released for open use. No restrictions apply.
 
 ---
 
+## Skills & technologies
+
+[![Python](https://img.shields.io/badge/Python-3776AB?logo=python&logoColor=white)](https://github.com/NirmalyaLenka/gexture-controll-) · [![Dependencies](https://img.shields.io/badge/dependencies-requirements.txt-6B7280)](./)
+
+
 ## Maintenance & Audit
 
 - **Audit date:** 10 November 2026
