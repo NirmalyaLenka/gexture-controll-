@@ -1,37 +1,45 @@
 @echo off
+setlocal
 echo Hand Gesture Control - Setup
 echo ==============================
 echo.
 
 where python >nul 2>&1
 if %errorlevel% neq 0 (
-    echo Python not found. Please install Python 3.11 from https://python.org
-    echo Make sure to tick "Add Python to PATH" during install.
+    echo Python was not found. Install Python 3.11 from https://python.org
+    echo Enable "Add Python to PATH" during installation.
     pause
     exit /b 1
 )
 
-for /f "tokens=*" %%i in ('python --version') do set PYVER=%%i
-echo Found: %PYVER%
-echo.
-
-echo Installing required packages...
-python -m pip install --upgrade pip
-python -m pip install opencv-python mediapipe numpy keyboard mouse screen-brightness-control
-
-echo.
-echo Verifying installation...
-python -c "import cv2, mediapipe, numpy, keyboard, mouse; print('All packages installed successfully')"
-
-if %errorlevel% neq 0 (
-    echo.
-    echo Something went wrong. Check the errors above.
-    pause
-    exit /b 1
+if not exist ".venv\Scripts\python.exe" (
+    echo Creating project virtual environment...
+    python -m venv .venv
+    if errorlevel 1 goto :fail
 )
 
+echo Installing dependencies from requirements.txt...
+".venv\Scripts\python.exe" -m pip install --upgrade pip
+if errorlevel 1 goto :fail
+
+".venv\Scripts\python.exe" -m pip install -r requirements.txt
+if errorlevel 1 goto :fail
+
 echo.
-echo Setup complete. Run the project with:
-echo     python gesture_control.py
+echo Verifying imports...
+".venv\Scripts\python.exe" -c "import cv2, mediapipe, numpy, keyboard, mouse, screen_brightness_control; print('Dependency imports succeeded')"
+if errorlevel 1 goto :fail
+
+echo.
+echo Setup complete.
+echo Run the project with:
+echo     .venv\Scripts\python.exe gesture_control.py
 echo.
 pause
+exit /b 0
+
+:fail
+echo.
+echo Setup failed. Read the error above, then check Python, network access and package compatibility.
+pause
+exit /b 1
