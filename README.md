@@ -90,6 +90,19 @@ python gesture_control.py
 
 The application opens a webcam window. Press **Q while that window is focused** to quit. If the camera does not open, close other camera applications and check the camera privacy permissions.
 
+## Safe first-run checklist
+
+Before testing gestures for the first time:
+
+1. Save work and close documents that contain unsaved changes.
+2. Keep only a disposable blank browser tab open; the fist gesture can send `Ctrl+W` to the active window.
+3. Avoid testing near forms, terminals, admin tools or applications where keyboard shortcuts could trigger consequential actions.
+4. Run the program as a normal user, not with administrator/root privileges.
+5. Keep the gesture-control window visible and press **Q** while it is focused to stop the app.
+6. Test one gesture at a time in good lighting. Treat the HUD as a recognition estimate, not proof that the intended system action succeeded.
+
+This is a testing procedure only. It does not disable keyboard or mouse actions, add confirmation prompts, or make recognition safer in software.
+
 ## How it works
 
 1. OpenCV reads camera index `0` at a requested resolution of 1280×720 and mirrors each frame.
