@@ -6,15 +6,14 @@ import mouse                                        # Mouse scroll
 import math                                         # Distance calc
 import time                                         # Cooldown timer
 import platform                                     # OS detection
-import subprocess                                   # Shell commands
 from typing import List, Tuple                      # Type hints
 
 OS = platform.system()                              # Detect OS
 
 # ── Volume setup ────────────────────────────────────────────────────────────
-# Uses Windows keyboard volume keys — works on ALL pycaw versions with zero
-# COM/ctypes complexity. Holds the key longer for bigger changes.
-_last_vol_level: float = 0.5                        # Track last level
+# Uses relative media-key presses; the OS volume is not read back.
+# 0.5 is a virtual starting point, not the measured system volume.
+_last_vol_level: float = 0.5                        # Virtual target baseline
 
 def set_volume(val: float) -> None:                 # Set system volume
     global _last_vol_level
